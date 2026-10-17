@@ -1,0 +1,23 @@
+# Local-only project instructions
+CLAUDE.md
+
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Data: raw files are immutable and local; warehouse is rebuilt by the pipeline
+data/raw/
+*.duckdb
+*.duckdb.wal
+# CSV exports of daily facts can exceed GitHub's file size limit; Parquet is committed
+data/exports/*.csv
+
+# dbt
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/.user.yml
+logs/

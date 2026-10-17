@@ -1,0 +1,8 @@
+food_price_dynamics:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # Relative to the dbt/ directory; override with the DUCKDB_PATH env var
+      path: "{{ env_var('DUCKDB_PATH', '../data/warehouse.duckdb') }}"
+      threads: 4

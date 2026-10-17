@@ -1,0 +1,37 @@
+name: food_price_dynamics
+version: "0.1.0"
+config-version: 2
+profile: food_price_dynamics
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  food_price_dynamics:
+    staging:
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +schema: intermediate
+      +materialized: table
+    marts:
+      +schema: marts
+      +materialized: table
+
+seeds:
+  food_price_dynamics:
+    +schema: seeds
+    provinces:
+      +column_types:
+        province_name: varchar
+        island_group: varchar
+        parent_province_34: varchar
+    ramadan_calendar:
+      +column_types:
+        year: integer
+        ramadan_start: date
+        eid_al_fitr: date

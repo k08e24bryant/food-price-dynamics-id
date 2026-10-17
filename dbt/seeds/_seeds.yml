@@ -1,0 +1,38 @@
+version: 2
+
+seeds:
+  - name: provinces
+    description: >
+      Province reference list (38 provinces). island_group splits Java (6 provinces)
+      from non-Java. parent_province_34 maps the four provinces created in 2022 back to
+      their parent so trends can use a stable 34-province panel. Names are the
+      standardized names; staging maps PIHPS spellings onto them. Owner to review.
+    columns:
+      - name: province_name
+        tests: [not_null, unique]
+      - name: island_group
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["java", "non_java"]
+      - name: parent_province_34
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('provinces')
+                field: province_name
+
+  - name: ramadan_calendar
+    description: >
+      TODO (owner): fill one row per year 2021-2026 with the official government
+      (Kemenag sidang isbat) dates. Do not generate these dates; enter them from
+      official sources and note the source in docs/decisions.md.
+    columns:
+      - name: year
+        tests: [not_null, unique]
+      - name: ramadan_start
+        tests: [not_null]
+      - name: eid_al_fitr
+        tests: [not_null, unique]
